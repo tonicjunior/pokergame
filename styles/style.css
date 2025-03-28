@@ -770,13 +770,12 @@ button:hover::before {
   box-shadow: 0 0 20px gold;
 }
 
-
 /* Media Query para telas menores */
 @media (max-width: 768px) {
-.hexagon{
-  top:4px;
-}
-  
+  .hexagon {
+    top: 4px;
+  }
+
   body {
     padding: 20px;
   }
@@ -787,14 +786,17 @@ button:hover::before {
     padding: 0 15px;
   }
 
-  .enemy, .player {
+  .enemy,
+  .player {
     min-width: 250px;
     margin: 10px 0;
   }
 
-
   .card-hand {
-    grid-template-columns: repeat(4, 1fr); /* Menos colunas para caber melhor na tela */
+    grid-template-columns: repeat(
+      4,
+      1fr
+    ); /* Menos colunas para caber melhor na tela */
     gap: 5px;
   }
 
@@ -850,7 +852,8 @@ button:hover::before {
     padding: 0 10px;
   }
 
-  .enemy, .player {
+  .enemy,
+  .player {
     min-width: 200px;
   }
 
@@ -881,3 +884,133 @@ button:hover::before {
     font-size: 0.9rem;
   }
 }
+
+/* Estilos para a modal de game over */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  border: 3px solid #8b0000;
+  border-radius: 15px;
+  padding: 25px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(139, 0, 0, 0.7);
+}
+
+.modal h2 {
+  color: #ff4444;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.modal p {
+  color: #ddd;
+  font-size: 1.2rem;
+  margin: 15px 0;
+}
+
+.modal-image {
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+  background-color: #333;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.modal-buttons button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+#modal-action-button {
+  background: linear-gradient(45deg, #8b0000, #ff4444);
+  color: white;
+}
+
+#modal-quit-button{
+  background: linear-gradient(45deg, #37474f, #607d8b);
+  color: white;
+}
+
+.modal-buttons button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade para mobile */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 95%;
+    padding: 20px 15px;
+  }
+
+  .modal h2 {
+    font-size: 1.5rem;
+  }
+
+  .modal p {
+    font-size: 1rem;
+  }
+
+  .modal-image {
+    width: 150px;
+    height: 150px;
+    font-size: 3rem;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-buttons button {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+
