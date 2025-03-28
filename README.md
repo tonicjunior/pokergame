@@ -7,7 +7,7 @@ Poker Battle é um jogo de estratégia que combina elementos de poker com um sis
    [![Investir](https://img.shields.io/badge/Investir%20no%20projeto-Informa%C3%A7%C3%B5es-4CAF50)](https://nubank.com.br/cobrar/3upen/672bafe3-8951-4aae-8e53-d86628e67a1a) 
 
 ## 🚀 Link para Jogar
-👉 [Clique aqui para jogar!](https://tonicjunior.github.io/BoardToim/)
+👉 [Clique aqui para jogar!](https://tonicjunior.github.io/pokergame/)
 
 ## 🃏 Como Jogar
 Selecione cartas da sua mão clicando nelas (até 5 cartas)
