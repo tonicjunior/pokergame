@@ -76,7 +76,10 @@ h1 {
   background: rgba(0, 0, 0, 0.4);
   border-radius: 15px 15px 0px 0px;
   text-align: center;
+  min-height: 80px;
 }
+
+
 /* Cartas do baralho */
 .card-hand {
   display: grid;
@@ -320,7 +323,7 @@ button:hover::before {
 }
 
 .loading-title {
-  font-family: "MedievalSharp", cursive;
+  font-family: "Montserrat", cursive;
   font-size: 3.5rem;
   color: #ad3402;
   text-shadow: 3px 3px 5px #000;
@@ -385,7 +388,7 @@ button:hover::before {
 .loading-text {
   margin-top: 15px;
   color: #797979;
-  font-family: "MedievalSharp", cursive;
+  font-family: "Montserrat", cursive;
   font-size: 1.2rem;
   text-align: center;
   text-shadow: 1px 1px 2px #000;
@@ -1014,3 +1017,270 @@ button:hover::before {
 }
 
 
+/* ANIMAÇÃO DE EMBARALHAMENTO MEDIEVAL - VERSÃO AMPLIADA */
+#shuffle-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 5, 15, 0.96);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+}
+
+.shuffle-stage {
+  position: relative;
+  width: 90vw;
+  height: 70vh;
+  max-width: 800px;
+  max-height: 600px;
+  perspective: 1200px;
+}
+
+.shuffle-card {
+  position: absolute;
+  width: 120px;  /* Aumentado de 60px */
+  height: 180px; /* Aumentado de 90px */
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+  animation: cardShuffle 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: calc(var(--i) * 0.12s);
+  filter: drop-shadow(0 5px 15px rgba(65, 105, 225, 0.5));
+}
+
+.shuffle-card .card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px; /* Aumentado de 6px */
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px; /* Aumentado de 5px */
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.shuffle-card .card-front {
+  background: linear-gradient(145deg, #1a2a6c, #2a3a8c);
+  border: 2px solid #5a6bbd;
+  transform: rotateY(0deg);
+}
+
+.shuffle-card .card-back {
+  background: linear-gradient(145deg, #0f1a3d, #1a2555);
+  border: 2px solid #4a5bac;
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shuffle-card .card-back::before {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%234a5bac" d="M50 0 L100 50 L50 100 L0 50 Z"/></svg>') center/contain no-repeat;
+  opacity: 0.3;
+}
+
+.shuffle-card .card-value {
+  font-size: 28px; /* Aumentado de 16px */
+  font-weight: bold;
+  color: #f0f4ff;
+  text-shadow: 0 0 5px rgba(160, 180, 255, 0.8);
+}
+
+.shuffle-card .card-suit {
+  font-size: 48px; /* Aumentado de 24px */
+  color: #c0d0ff;
+  text-align: center;
+  margin: 15px 0; /* Aumentado de auto */
+  text-shadow: 0 0 8px rgba(160, 180, 255, 0.6);
+}
+
+.shuffle-card .card-suit.bottom {
+  transform: rotate(180deg);
+}
+
+/* Animações ampliadas */
+@keyframes cardShuffle {
+  0% {
+    transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) rotateZ(0deg) scale(1);
+    z-index: 1;
+  }
+  20% {
+    transform: translate(-50%, -50%) rotateY(180deg) translateZ(180px) rotateZ(15deg) scale(1.1);
+    z-index: 10;
+  }
+  40% {
+    transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) rotateZ(0deg) scale(1);
+    z-index: 1;
+  }
+  60% {
+    transform: translate(-50%, -50%) rotateY(-180deg) translateZ(180px) rotateZ(-15deg) scale(1.1);
+    z-index: 10;
+  }
+  80% {
+    transform: translate(-50%, -50%) rotateY(0deg) translateZ(50px) rotateZ(5deg) scale(1.05);
+    z-index: 5;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) rotateZ(0deg) scale(1);
+    z-index: 1;
+  }
+}
+
+/* Efeitos adicionais */
+.shuffle-bg-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(70, 110, 200, 0.15) 0%, transparent 25%),
+    radial-gradient(circle at 80% 70%, rgba(70, 110, 200, 0.15) 0%, transparent 25%);
+  animation: patternMove 20s linear infinite;
+}
+
+@keyframes patternMove {
+  100% {
+    background-position: 100px 100px, -100px -100px;
+  }
+}
+
+/* Responsividade para versão ampliada */
+@media (max-width: 768px) {
+
+  .view-damage{
+    width: 90%;
+  }
+  
+  .shuffle-card {
+    width: 100px;
+    height: 150px;
+  }
+  
+  .shuffle-card .card-value {
+    font-size: 24px;
+  }
+  
+  .shuffle-card .card-suit {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .view-damage{
+    width: 90%;
+  }
+
+  .shuffle-card {
+    width: 80px;
+    height: 120px;
+  }
+  
+  .shuffle-card .card-value {
+    font-size: 20px;
+  }
+  
+  .shuffle-card .card-suit {
+    font-size: 30px;
+  }
+}
+
+/* Aura mais elaborada para cartas críticas */
+.card.critical {
+  position: relative;
+  overflow: visible;
+  transform: translateY(0);
+  animation: float 2s ease-in-out infinite;
+}
+
+.card.critical::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  background: linear-gradient(45deg, 
+    rgba(0,191,255,0.8) 0%, 
+    rgba(0,127,255,0.5) 50%, 
+    rgba(0,191,255,0.8) 100%);
+  border-radius: 8px;
+  z-index: -1;
+  animation: aura-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes aura-pulse {
+  0% { opacity: 0.6; filter: blur(8px); }
+  50% { opacity: 0.3; filter: blur(12px); }
+  100% { opacity: 0.6; filter: blur(8px); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Efeito de partículas melhorado */
+.blue-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #00f2ff, #0066ff);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 0 10px #00f7ff;
+}
+
+/* Aura no personagem quando usa cartas críticas */
+.player-aura {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, 
+    rgba(0,162,255,0.4) 0%, 
+    rgba(0,162,255,0.1) 70%, 
+    transparent 100%);
+  border-radius: 50%;
+  animation: aura-burst 1s ease-out;
+  filter: blur(20px);
+  z-index: 500;
+}
+
+@keyframes aura-burst {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+.card.selected {
+  transform: translateY(-20px);
+  transition: transform 0.2s ease-in-out;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+/* Animação adicional para cartas críticas */
+.card.critical.selected {
+  animation: critical-float 1s ease-in-out infinite;
+}
+
+@keyframes critical-float {
+  0% { transform: translateY(-20px) rotateZ(0deg); }
+  50% { transform: translateY(-25px) rotateZ(3deg); }
+  100% { transform: translateY(-20px) rotateZ(0deg); }
+}
