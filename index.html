@@ -37,6 +37,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   </head>
   <body>
+
+    <div id="game-mode-selection" class="character-selection-screen">
+      <h1>ESCOLHA SUA JORNADA</h1>
+      <div class="character-cards" id="mode-cards-container">
+        <!-- Os cards serão gerados dinamicamente pelo JavaScript -->
+      </div>
+    </div>
+    
+    <div id="character-selection" class="character-selection-screen">
+      <h1>ESCOLHA SEU DESTINO</h1>
+      <div class="character-cards" id="character-cards-container">
+        <!-- Os cards serão gerados dinamicamente pelo JavaScript -->
+      </div>
+    </div>
+
     <div class="reward-screen" id="reward-screen">
       <div class="reward-container">
         <div class="reward-title">Recompensa de Vitória!</div>
@@ -133,6 +148,7 @@
       <div class="player" id="player-container">
         <div class="portrait">
           <img
+            id="player-image"
             src="assets/images/1f1f9ecf-5f24-4fe9-9949-3e8d6cadfb48.png"
             alt="Jogador"
           />
@@ -141,8 +157,8 @@
           </div>
         </div>
       </div>
-      <!-- repetir esse bloco -->
     </div>
+    
 
     <div id="log"></div>
 
