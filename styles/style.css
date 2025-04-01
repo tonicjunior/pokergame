@@ -79,7 +79,6 @@ h1 {
   min-height: 80px;
 }
 
-
 /* Cartas do baralho */
 .card-hand {
   display: grid;
@@ -448,18 +447,6 @@ button:hover::before {
   }
 }
 
-.enemy-attack {
-  position: fixed;
-  width: 200px;
-  height: 200px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23FF4500" d="M20,50 Q50,0 80,50 Q50,30 20,50" /></svg>')
-    no-repeat;
-  background-size: contain;
-  z-index: 100;
-  pointer-events: none;
-  animation: enemyAttack 0.8s forwards;
-}
-
 .fire-effect {
   position: fixed;
   width: 300px;
@@ -774,7 +761,7 @@ button:hover::before {
 }
 
 /* Media Query para telas menores */
-@media (max-width: 768px) {
+@media (max-width: 910px) {
   .hexagon {
     top: 4px;
   }
@@ -962,7 +949,7 @@ button:hover::before {
   color: white;
 }
 
-#modal-quit-button{
+#modal-quit-button {
   background: linear-gradient(45deg, #37474f, #607d8b);
   color: white;
 }
@@ -1016,7 +1003,6 @@ button:hover::before {
   }
 }
 
-
 /* ANIMAÇÃO DE EMBARALHAMENTO MEDIEVAL - VERSÃO AMPLIADA */
 #shuffle-animation {
   position: fixed;
@@ -1044,7 +1030,7 @@ button:hover::before {
 
 .shuffle-card {
   position: absolute;
-  width: 120px;  /* Aumentado de 60px */
+  width: 120px; /* Aumentado de 60px */
   height: 180px; /* Aumentado de 90px */
   left: 50%;
   top: 50%;
@@ -1088,7 +1074,8 @@ button:hover::before {
   position: absolute;
   width: 80%;
   height: 80%;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%234a5bac" d="M50 0 L100 50 L50 100 L0 50 Z"/></svg>') center/contain no-repeat;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%234a5bac" d="M50 0 L100 50 L50 100 L0 50 Z"/></svg>')
+    center/contain no-repeat;
   opacity: 0.3;
 }
 
@@ -1114,27 +1101,33 @@ button:hover::before {
 /* Animações ampliadas */
 @keyframes cardShuffle {
   0% {
-    transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) rotateZ(0deg) scale(1);
+    transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) rotateZ(0deg)
+      scale(1);
     z-index: 1;
   }
   20% {
-    transform: translate(-50%, -50%) rotateY(180deg) translateZ(180px) rotateZ(15deg) scale(1.1);
+    transform: translate(-50%, -50%) rotateY(180deg) translateZ(180px)
+      rotateZ(15deg) scale(1.1);
     z-index: 10;
   }
   40% {
-    transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) rotateZ(0deg) scale(1);
+    transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) rotateZ(0deg)
+      scale(1);
     z-index: 1;
   }
   60% {
-    transform: translate(-50%, -50%) rotateY(-180deg) translateZ(180px) rotateZ(-15deg) scale(1.1);
+    transform: translate(-50%, -50%) rotateY(-180deg) translateZ(180px)
+      rotateZ(-15deg) scale(1.1);
     z-index: 10;
   }
   80% {
-    transform: translate(-50%, -50%) rotateY(0deg) translateZ(50px) rotateZ(5deg) scale(1.05);
+    transform: translate(-50%, -50%) rotateY(0deg) translateZ(50px)
+      rotateZ(5deg) scale(1.05);
     z-index: 5;
   }
   100% {
-    transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) rotateZ(0deg) scale(1);
+    transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) rotateZ(0deg)
+      scale(1);
     z-index: 1;
   }
 }
@@ -1144,9 +1137,16 @@ button:hover::before {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(70, 110, 200, 0.15) 0%, transparent 25%),
-    radial-gradient(circle at 80% 70%, rgba(70, 110, 200, 0.15) 0%, transparent 25%);
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(70, 110, 200, 0.15) 0%,
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(70, 110, 200, 0.15) 0%,
+      transparent 25%
+    );
   animation: patternMove 20s linear infinite;
 }
 
@@ -1158,27 +1158,26 @@ button:hover::before {
 
 /* Responsividade para versão ampliada */
 @media (max-width: 768px) {
-
-  .view-damage{
+  .view-damage {
     width: 90%;
   }
-  
+
   .shuffle-card {
     width: 100px;
     height: 150px;
   }
-  
+
   .shuffle-card .card-value {
     font-size: 24px;
   }
-  
+
   .shuffle-card .card-suit {
     font-size: 36px;
   }
 }
 
 @media (max-width: 480px) {
-  .view-damage{
+  .view-damage {
     width: 90%;
   }
 
@@ -1186,11 +1185,11 @@ button:hover::before {
     width: 80px;
     height: 120px;
   }
-  
+
   .shuffle-card .card-value {
     font-size: 20px;
   }
-  
+
   .shuffle-card .card-suit {
     font-size: 30px;
   }
@@ -1204,36 +1203,89 @@ button:hover::before {
   animation: float 2s ease-in-out infinite;
 }
 
-.card.critical::before {
-  content: '';
+.damage-type::before {
+  content: "";
   position: absolute;
   top: -6px;
   left: -6px;
   right: -6px;
   bottom: -6px;
-  background: linear-gradient(45deg, 
-    rgba(0,191,255,0.8) 0%, 
-    rgba(0,127,255,0.5) 50%, 
-    rgba(0,191,255,0.8) 100%);
+  background: linear-gradient(
+    45deg,
+    rgba(255, 77, 77, 0.8) 0%,
+    rgba(255, 50, 50, 0.5) 50%,
+    rgba(255, 77, 77, 0.8) 100%
+  );
+  border-radius: 8px;
+  z-index: -1;
+  animation: aura-pulse 1.5s ease-in-out infinite;
+}
+
+.defense-type::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  background: linear-gradient(
+    45deg,
+    rgba(77, 121, 255, 0.8) 0%,
+    rgba(50, 100, 255, 0.5) 50%,
+    rgba(77, 121, 255, 0.8) 100%
+  );
+  border-radius: 8px;
+  z-index: -1;
+  animation: aura-pulse 1.5s ease-in-out infinite;
+}
+
+.heal-type::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  background: linear-gradient(
+    45deg,
+    rgba(77, 255, 136, 0.8) 0%,
+    rgba(50, 200, 100, 0.5) 50%,
+    rgba(77, 255, 136, 0.8) 100%
+  );
   border-radius: 8px;
   z-index: -1;
   animation: aura-pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes aura-pulse {
-  0% { opacity: 0.6; filter: blur(8px); }
-  50% { opacity: 0.3; filter: blur(12px); }
-  100% { opacity: 0.6; filter: blur(8px); }
+  0% {
+    opacity: 0.6;
+    filter: blur(8px);
+  }
+  50% {
+    opacity: 0.3;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 0.6;
+    filter: blur(8px);
+  }
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 /* Efeito de partículas melhorado */
-.blue-particle {
+.defense-type-particle {
   position: fixed;
   width: 8px;
   height: 8px;
@@ -1244,18 +1296,84 @@ button:hover::before {
   box-shadow: 0 0 10px #00f7ff;
 }
 
+/* Partícula para personagens de dano */
+.damage-type-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #ff4d4d, #ff0000);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 0 10px #ff4d4d;
+}
+
+/* Partícula para personagens de cura */
+.heal-type-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #4dff88, #00cc66);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 0 10px #4dff88;
+}
+
 /* Aura no personagem quando usa cartas críticas */
-.player-aura {
+.player-aura.defense-type {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 150%;
   height: 150%;
-  background: radial-gradient(circle, 
-    rgba(0,162,255,0.4) 0%, 
-    rgba(0,162,255,0.1) 70%, 
-    transparent 100%);
+  background: radial-gradient(
+    circle,
+    rgba(0, 162, 255, 0.4) 0%,
+    rgba(0, 162, 255, 0.1) 70%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: aura-burst 1s ease-out;
+  filter: blur(20px);
+  z-index: 500;
+}
+
+/* Aura para personagens de dano */
+.player-aura.damage-type {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 77, 77, 0.4) 0%,
+    rgba(255, 77, 77, 0.1) 70%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: aura-burst 1s ease-out;
+  filter: blur(20px);
+  z-index: 500;
+}
+
+/* Aura para personagens de cura */
+.player-aura.heal-type {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(
+    circle,
+    rgba(77, 255, 136, 0.4) 0%,
+    rgba(77, 255, 136, 0.1) 70%,
+    transparent 100%
+  );
   border-radius: 50%;
   animation: aura-burst 1s ease-out;
   filter: blur(20px);
@@ -1263,15 +1381,18 @@ button:hover::before {
 }
 
 @keyframes aura-burst {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
-}
-
-.card.selected {
-  transform: translateY(-20px);
-  transition: transform 0.2s ease-in-out;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 /* Animação adicional para cartas críticas */
@@ -1280,7 +1401,162 @@ button:hover::before {
 }
 
 @keyframes critical-float {
-  0% { transform: translateY(-20px) rotateZ(0deg); }
-  50% { transform: translateY(-25px) rotateZ(3deg); }
-  100% { transform: translateY(-20px) rotateZ(0deg); }
+  0% {
+    transform: translateY(-20px) rotateZ(0deg);
+  }
+  50% {
+    transform: translateY(-25px) rotateZ(3deg);
+  }
+  100% {
+    transform: translateY(-20px) rotateZ(0deg);
+  }
+}
+
+.character-selection-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../assets/images/2151470678.jpg") no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.character-selection-screen h1 {
+  font-size: 3rem;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  margin-bottom: 2rem;
+  animation: glow 2s infinite alternate;
+}
+
+.character-cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.character-card {
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  padding: 1.5rem;
+  width: 280px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.character-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.character-card p {
+  min-height: 58px;
+}
+
+.character-portrait {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid;
+  position: relative;
+}
+
+.damage-type {
+  border-color: #ff4d4d;
+  box-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
+}
+
+.defense-type {
+  border-color: #4d79ff;
+  box-shadow: 0 0 20px rgba(77, 121, 255, 0.6);
+}
+
+.heal-type {
+  border-color: #4dff88;
+  box-shadow: 0 0 20px rgba(77, 255, 136, 0.6);
+}
+
+.character-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.character-ability {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.damage-type .character-ability {
+  background: rgba(255, 77, 77, 0.2);
+  border: 1px solid #ff4d4d;
+}
+
+.defense-type .character-ability {
+  background: rgba(77, 121, 255, 0.2);
+  border: 1px solid #4d79ff;
+}
+
+.heal-type .character-ability {
+  background: rgba(77, 255, 136, 0.2);
+  border: 1px solid #4dff88;
+}
+
+.ability-icon {
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
+  }
+}
+
+
+/* new */
+
+/* Estilo para o modo desabilitado */
+.character-card.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.character-card.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.disabled-type {
+  border-color: #555 !important;
+}
+
+.coming-soon {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: #ff0000;
+  padding: 5px;
+  font-size: 1.2rem;
+  transform: translateY(-50%);
+  text-shadow: 0 0 5px #000;
 }
