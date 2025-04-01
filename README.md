@@ -1,8 +1,5 @@
 # 🃏 Poker Battle RPG
 
-![GitHub repo size](https://img.shields.io/github/repo-size/tonicjunior/pokergame)
-![GitHub last commit](https://img.shields.io/github/last-commit/tonicjunior/pokergame)
-
 ## 🎮 Sobre o Jogo
 Poker Battle é um jogo de estratégia em estilo RPG Dark Souls que combina elementos de poker com um sistema de batalha por turnos. Escolha seu modo de jogo e personagem, enfrente inimigos épicos e use combinações de cartas para derrotá-los!
 
