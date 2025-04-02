@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadingText = document.getElementById("loading-text");
   const loadingTip = document.getElementById("loading-tip");
 
+  const select = document.getElementById("select-container");
+  const game = document.getElementById("game-screen");
+
   // Dicas medievais aleatórias
   const tips = [
     "Um bom cavaleiro conhece tanto sua espada quanto seu coração",
@@ -37,11 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // // Quando completar
     if (progress === 100) {
       clearInterval(interval);
-      setTimeout(() => {
-        loadingScreen.style.opacity = "0";
-        setTimeout(() => {
-          loadingScreen.classList.add("hidden");
-        }, 1500);
+      setTimeout(() => {        
+        loadingScreen.remove();
+        select.classList.remove("hidden");
+        game.classList.remove("hidden");
       }, 1000);
     }
   }, 400);
