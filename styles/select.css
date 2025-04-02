@@ -264,14 +264,6 @@
     font-size: 0.9rem;
   }
 
-  .hexagon {
-    top: 6px;
-    right: 20px;
-    width: 25px;
-    height: 25px;
-    font-size: 14px;
-  }
-
   /* LOG */
   #log {
     margin: 10px;
@@ -371,7 +363,7 @@
   }
 
   .card-hand {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 5px;
     padding: 8px;
   }
@@ -517,7 +509,7 @@
   background-image: url("../assets/images/value.png"); /* Defina a imagem */
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 50%;
+  background-size: 60%;
   cursor: pointer;
   background-color: #0c0c177d;
 }
@@ -526,7 +518,7 @@
   background-image: url("../assets/images/suit.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 50%;
+  background-size: 60%;
   cursor: pointer;
   background-color: #0c0c177d;
 }
@@ -535,7 +527,38 @@
   background-image: url("../assets/images/info.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 50%;
+  background-size: 60%;
   cursor: pointer;
   background-color: #0c0c177d;
+}
+
+.attack {
+  background-image: url("../assets/images/attack.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 120%;
+  cursor: pointer;
+  background-color: #b2222286;
+  height: 100px !important;
+}
+
+
+.attack:hover {
+  background-color: rgba(255, 0, 0, 0.4) ;
+}
+
+
+.discard {
+  background-image: url("../assets/images/discard.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+  cursor: pointer;
+  background-color: #607d8b;
+  height: 100px !important;
+  background-position-y: 20px;
+}
+
+.discard:hover {
+  background-color: rgba(96, 125, 139, 0.4);
 }
