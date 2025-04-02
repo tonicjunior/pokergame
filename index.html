@@ -34,22 +34,130 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/loading.css" />
+    <link rel="stylesheet" href="styles/select.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
   </head>
   <body>
+    <!-- /*  ------------------------------------ LOADING ESTRUTURA */ -->
+    <div class="loading-screen" id="loading-screen">
+      <h1 class="loading-title">POKER BATTLE</h1>
 
-    <div id="game-mode-selection" class="character-selection-screen">
-      <h1>ESCOLHA SUA JORNADA</h1>
-      <div class="character-cards" id="mode-cards-container">
-        <!-- Os cards serão gerados dinamicamente pelo JavaScript -->
+      <div class="loading-container">
+        <div class="loading-bar-container">
+          <div class="loading-bar" id="loading-bar"></div>
+        </div>
+        <div class="loading-text" id="loading-text">
+          Preparando a batalha...
+        </div>
+      </div>
+
+      <div class="loading-tip" id="loading-tip">
+        "A espada mais afiada não vale nada sem a estratégia certa"
       </div>
     </div>
-    
-    <div id="character-selection" class="character-selection-screen">
-      <h1>ESCOLHA SEU DESTINO</h1>
-      <div class="character-cards" id="character-cards-container">
-        <!-- Os cards serão gerados dinamicamente pelo JavaScript -->
+
+    <div id="select-container" class="select-container hidden">
+      <div id="game-mode-selection" class="character-selection-screen">
+        <h1>ESCOLHA SUA JORNADA</h1>
+        <div class="character-cards" id="mode-cards-container"></div>
       </div>
+
+      <div id="character-selection" class="character-selection-screen">
+        <h1>ESCOLHA SEU DESTINO</h1>
+        <div class="character-cards" id="character-cards-container"></div>
+      </div>
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+      <div class="game-header">
+        <div class="player-container">
+          <h2 id="nickPlayer">Dragon</h1>
+          <div class="container">
+            <div class="player" id="player-container">
+              <div class="portrait">
+                <img
+                  id="player-image"
+                  src="assets/images/1f1f9ecf-5f24-4fe9-9949-3e8d6cadfb48.png"
+                  alt="Jogador"
+                />
+                <div class="health-bar">
+                  <div id="player-health" class="health"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-status">
+          <div class="enemy-progress">
+            <div id="turn-indicator" class="turn-indicator your-turn">
+              SUA VEZ
+            </div>
+            <div class="enemy-track" id="enemy-track"></div>
+          </div>
+          <div class="enemy-container">
+            <h1 id="nickMonster">Dragon</h1>
+            <div class="container">
+              <div class="enemy" id="enemy-container">
+                <div class="portrait">
+                  <img src="assets/images/dbb.jpg" alt="Dragon" />
+                  <div class="health-bar">
+                    <div id="enemy-health" class="health"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="player-container">
+          <div class="container">
+            <div class="player hidden" id="player-container"></div>
+          </div>
+        </div>
+      </div>
+      <div class="game-board">
+        <div id="log"></div>
+        <div class="player-actions">
+          <div class="organize">  
+            <div class="organize-buttons">
+              <button class="organize-btn info" title="Lista de Combinações" onclick="showCombinationsTable()"></button>
+              <button class="organize-btn sortValue" title="Organizar por Valor" onclick="sortByValue()">                
+              </button>
+              <button class="organize-btn sortSuit" title="Organizar por Naipe" onclick="sortBySuit()">
+              
+              </button>
+            </div>
+          <div class="view-damage">         
+            <!-- Área de visualização do dano potencial -->
+            <div id="preview">
+              <div id="damage-preview">
+                Selecione cartas para ver o dano potencial
+              </div>
+            </div>
+            <!-- Área das cartas do jogador -->
+            <div class="card-hand" id="player-hand"></div>
+          </div>
+        </div>
+          <div class="actions">
+            <button onclick="playDiscard()" id="discard-btn" class="discard">
+              DESCARTAR
+              <div class="hexagon" id="discard-count">3</div>
+            </button>
+            <button onclick="playHand()" id="attack-btn" class="attack">
+              ATACAR
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="special-attack-overlay" id="special-attack-overlay">
+      <div class="special-attack-text" id="special-attack-text">
+        YAGAI 夜ガイ
+      </div>
+      <div class="special-attack-beam" id="special-attack-beam"></div>
     </div>
 
     <div class="reward-screen" id="reward-screen">
@@ -87,81 +195,6 @@
       </div>
     </div>
 
-    <div class="enemy-progress">
-      <div class="progress-title">Jornada do Herói</div>
-      <div class="enemy-track" id="enemy-track"></div>
-    </div>
-    <div class="special-attack-overlay" id="special-attack-overlay">
-      <div class="special-attack-text" id="special-attack-text">
-        YAGAI 夜ガイ
-      </div>
-      <div class="special-attack-beam" id="special-attack-beam"></div>
-    </div>
-
-    <div class="loading-screen" id="loading-screen">
-      <h1 class="loading-title">POKER BATTLE</h1>
-
-      <div class="loading-container">
-        <div class="loading-bar-container">
-          <div class="loading-bar" id="loading-bar"></div>
-        </div>
-        <div class="loading-text" id="loading-text">
-          Preparando a batalha...
-        </div>
-      </div>
-
-      <div class="loading-tip" id="loading-tip">
-        "A espada mais afiada não vale nada sem a estratégia certa"
-      </div>
-    </div>
-
-    <h1 id="nickMonster">Dragon</h1>
-
-    <!-- Container Inimigo com imagem e health sobreposta -->
-    <div class="container">
-      <div class="enemy" id="enemy-container">
-        <div class="portrait">
-          <img src="assets/images/dbb.jpg" alt="Dragon" />
-          <div class="health-bar">
-            <div id="enemy-health" class="health"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="view-damage">
-      <!-- Área de visualização do dano potencial -->
-      <div id="damage-preview">Selecione cartas para ver o dano potencial</div>
-      <!-- Área das cartas do jogador -->
-      <div class="card-hand" id="player-hand"></div>
-    </div>
-    <div class="actions">
-      <button onclick="playDiscard()" id="play-btn" class="discard">
-        DESCARTAR
-        <div class="hexagon" id="discard-count">3</div>
-      </button>
-      <button onclick="playHand()" id="play-btn" class="attack">ATACAR</button>
-    </div>
-
-    <!-- Container Jogador com imagem e health sobreposta -->
-    <div class="container">
-      <div class="player" id="player-container">
-        <div class="portrait">
-          <img
-            id="player-image"
-            src="assets/images/1f1f9ecf-5f24-4fe9-9949-3e8d6cadfb48.png"
-            alt="Jogador"
-          />
-          <div class="health-bar">
-            <div id="player-health" class="health"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-
-    <div id="log"></div>
-
     <div id="game-modal" class="modal">
       <div class="modal-content">
         <h2 id="modal-title">Título</h2>
@@ -176,8 +209,34 @@
         </div>
       </div>
     </div>
-
-    <script src="assets/loading.js"></script>
-    <script src="assets/app-o.js"></script>
+    <div id="combinations-modal" class="modal-cards">
+      <div class="modal-content combinations-content">
+        <span class="close" onclick="closeCombinationsTable()">&times;</span>
+        <h2>Combinações de Ataque</h2>
+        <table class="combinations-table">
+          <thead>
+            <tr>
+              <th>Combinação</th>
+              <th>Exemplo</th>
+              <th>Nome do Ataque</th>
+              <th>Dano</th>
+            </tr>
+          </thead>
+          <tbody id="combinations-body">
+            <!-- As linhas serão geradas pelo JavaScript -->
+          </tbody>
+        </table>
+        <div class="bonus-info">
+          <h3>Bônus por Cartas Críticas:</h3>
+          <ul>
+            <li>⚔️ <strong>Executor da Ruína:</strong> +15% de dano por carta crítica</li>
+            <li>🛡️ <strong>Bastião Imortal:</strong> +10% de defesa por carta crítica</li>
+            <li>💚 <strong>Arauto da Ceifa:</strong> Cura 5% da vida máxima por carta crítica</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
+  <script src="assets/loading.js"></script>
+  <script src="assets/app-o.js"></script>
 </html>
