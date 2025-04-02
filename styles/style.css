@@ -1,85 +1,81 @@
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(45deg, #1a1a1a, #383b43);
+  background: #1a1a2e;
   color: white;
   font-family: "Montserrat", sans-serif;
   min-height: 100vh;
   margin: 0;
-}
-h1 {
-  color: #ff4444;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-.container {
   display: flex;
-  justify-content: space-around;
-  width: 100%;
-  max-width: 1200px;
-}
-/* Containers do inimigo e do jogador com imagens */
-.enemy,
-.player {
-  text-align: center;
-  border: 4px solid #000000c4;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(255, 69, 0, 0.3);
-  min-width: 300px;
-  position: relative;
+  flex-direction: column;
+  align-items: center;
 }
 
-.portrait {
-  display: inline-block;
-  width: 300px;
-  overflow: hidden;
+#game-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.portrait img {
-  width: 100%;
-  display: block;
+
+/*  ------------------------------ Log de ações */
+#log {
+  max-width: 900px;
+  height: 90px;
+  overflow-y: auto;
+  border: 2px solid #ffffff21;
+  padding: 10px;
+  margin: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  font-size: 1em;
 }
-.portrait .health-bar {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: calc(100% - 20px);
-  height: 22px;
-  background-color: #444;
-  border-radius: 15px;
-  overflow: hidden;
+#log::-webkit-scrollbar {
+  width: 8px;
 }
-.portrait .health {
-  height: 100%;
-  background: linear-gradient(90deg, #007b009c, #007b00);
-  width: 100%;
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
+#log::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
 }
-.portrait .health::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0) 50%
-  );
+#log::-webkit-scrollbar-thumb {
+  background: #8b0000;
+  border-radius: 4px;
 }
-/* Previsão de dano */
+.log-entry {
+  padding: 5px;
+  margin: 4px 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  font-size: 12px;
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/*  ------------------------------ Log de ações */
+
 #damage-preview {
-  font-size: 1.2em;
-  margin-top: 20px;
-  padding: 10px 15px;
+  font-size: 1em;
+  padding: 15px 15px;
+  white-space: nowrap; /* Impede quebras de linha */
+  overflow: hidden; /* Esconde conteúdo que ultrapassar */
+  text-overflow: ellipsis; /* Adiciona "..." se o texto for muito longo */
+  max-width: 100%; /* Garante que não ultrapasse a largura do container */
+  box-sizing: border-box; /* Inclui padding na largura total */
+  height: 50px;
+}
+
+#preview {
   background: rgba(0, 0, 0, 0.4);
   border-radius: 15px 15px 0px 0px;
   text-align: center;
-  min-height: 80px;
+  min-height: 44px;
 }
-
-/* Cartas do baralho */
+/* -------------------------------------------- CARTAS BARRALHO */
 .card-hand {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -142,6 +138,112 @@ h1 {
   margin-top: 15px;
 }
 
+.card.critical.selected {
+  animation: critical-float 1s ease-in-out infinite;
+}
+
+@keyframes critical-float {
+  0% {
+    transform: translateY(-20px) rotateZ(0deg);
+  }
+  50% {
+    transform: translateY(-25px) rotateZ(3deg);
+  }
+  100% {
+    transform: translateY(-20px) rotateZ(0deg);
+  }
+}
+
+/* Aura mais elaborada para cartas críticas */
+.card.critical {
+  position: relative;
+  overflow: visible;
+  transform: translateY(0);
+  animation: float 2s ease-in-out infinite;
+}
+
+.damage-type::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 77, 77, 0.8) 0%,
+    rgba(255, 50, 50, 0.5) 50%,
+    rgba(255, 77, 77, 0.8) 100%
+  );
+  border-radius: 8px;
+  z-index: -1;
+  animation: aura-pulse 1.5s ease-in-out infinite;
+}
+
+.defense-type::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  background: linear-gradient(
+    45deg,
+    rgba(77, 121, 255, 0.8) 0%,
+    rgba(50, 100, 255, 0.5) 50%,
+    rgba(77, 121, 255, 0.8) 100%
+  );
+  border-radius: 8px;
+  z-index: -1;
+  animation: aura-pulse 1.5s ease-in-out infinite;
+}
+
+.heal-type::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  background: linear-gradient(
+    45deg,
+    rgba(77, 255, 136, 0.8) 0%,
+    rgba(50, 200, 100, 0.5) 50%,
+    rgba(77, 255, 136, 0.8) 100%
+  );
+  border-radius: 8px;
+  z-index: -1;
+  animation: aura-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes aura-pulse {
+  0% {
+    opacity: 0.6;
+    filter: blur(8px);
+  }
+  50% {
+    opacity: 0.3;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 0.6;
+    filter: blur(8px);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* -------------------------------------------- CARTAS BARRALHO */
 .actions {
   display: flex;
   justify-content: space-between;
@@ -149,10 +251,11 @@ h1 {
   width: 100%;
   margin-bottom: 30px;
 }
+
 /* Botão */
 button {
-  padding: 15px 35px;
-  font-size: 20px;
+  padding: 13px 28px;
+  font-size: 0.8rem;
   color: white;
   border: none;
   border-radius: 25px;
@@ -164,7 +267,7 @@ button {
   font-weight: bold;
   position: relative;
   overflow: hidden;
-  width: 40%;
+  width: 36%;
 }
 button::before {
   content: "";
@@ -205,14 +308,14 @@ button:hover::before {
   position: absolute;
   top: 7px;
   right: 30px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background: #ffffff9e;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   color: black;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
@@ -225,47 +328,221 @@ button:hover::before {
 .attack:hover {
   box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
 }
-/* Log de ações */
-#log {
-  width: 80%;
-  max-width: 900px;
+
+/* CARDS */
+
+#nickMonster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+}
+
+#nickPlayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  color: #a6ebe1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
+}
+
+.enemy-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #ff4444;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+/* Containers do inimigo e do jogador com imagens */
+.enemy,
+.player {
+  text-align: center;
+  border: 4px solid #000000c4;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 69, 0, 0.3);
+  min-width: 180px;
+  position: relative;
+}
+
+.portrait {
+  display: inline-block;
+  width: 180px;
+  overflow: hidden;
+}
+
+.portrait img {
+  width: 100%;
+  display: block;
+}
+.portrait .health-bar {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: 19px;
+  background-color: #444;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.player .health-bar {
+  height: 15px;
+}
+
+.portrait .health {
+  height: 100%;
+  background: linear-gradient(90deg, #007b009c, #007b00);
+  width: 100%;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.portrait .health::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
+}
+
+/* BARRA DE PROGRESSO */
+
+.turn-indicator {
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  max-width: 150px;
+  min-width: 100px;
+  cursor: pointer;
+}
+
+.turn-indicator.your-turn {
+  background-color: #4cc9f0;
+  color: #1a1a2e;
+}
+
+.turn-indicator.opponent-turn {
+  background-color: #e94560;
+  color: white;
+}
+
+.enemy-track {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.energy-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #ff0000;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.enemy-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+  flex-direction: column;
+}
+
+.enemy-status {
+  width: 80px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.enemy-status img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #444;
+  box-shadow: 0 0 15px rgba(255, 251, 3, 0.87);
+}
+
+.enemy-status.defeated {
+  opacity: 0.6;
+  filter: grayscale(80%);
+}
+
+.enemy-status.future {
+  display: none;
+}
+
+.game-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.player-container {
+  margin-top: 100px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-status {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* Se houver apenas um player-container, ele será alinhado à direita */
+.game-header:has(.player-container:only-child) .player-container {
+  justify-content: flex-end;
+}
+
+/* Ajustes para os containers internos */
+.container {
+  display: flex;
+  justify-content: center;
+  width: auto; /* Remove a largura máxima */
+}
+
+.player.hidden {
+  border: none;
+  box-shadow: none;
+}
+
+.player-container .portrait {
+  width: 150px;
   height: 150px;
-  overflow-y: auto;
-  border: 2px solid #ffffff21;
-  padding: 15px;
-  margin: 20px;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  font-size: 1em;
 }
-#log::-webkit-scrollbar {
-  width: 8px;
+
+.player-container .enemy,
+.player {
+  min-width: 150px;
+  height: 150px;
 }
-#log::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.3);
+
+.hidden {
+  display: none;
 }
-#log::-webkit-scrollbar-thumb {
-  background: #8b0000;
-  border-radius: 4px;
-}
-.log-entry {
-  padding: 8px;
-  margin: 4px 0;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  animation: fadeIn 0.5s ease;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-/* Animação de dano */
+
 @keyframes shake {
   0% {
     transform: translate(1px, 1px) rotate(0deg);
@@ -303,109 +580,6 @@ button:hover::before {
 }
 .damage {
   animation: shake 0.5s;
-}
-
-.loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url("../assets/images/2151470678.jpg") center/cover no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  transition: opacity 1.5s ease-out;
-}
-
-.loading-title {
-  font-family: "Montserrat", cursive;
-  font-size: 3.5rem;
-  color: #ad3402;
-  text-shadow: 3px 3px 5px #000;
-  margin-bottom: 2rem;
-  letter-spacing: 3px;
-  position: relative;
-}
-
-.loading-container {
-  width: 400px;
-  background: rgba(0, 0, 0, 0.7);
-  border: 2px solid #ad3402;
-  border-radius: 5px;
-  padding: 20px;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-}
-
-.loading-bar-container {
-  width: 100%;
-  height: 25px;
-  background-color: #222;
-  border: 1px solid #444;
-  border-radius: 3px;
-  overflow: hidden;
-  position: relative;
-}
-
-.loading-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #8b0000, #ad3402);
-  transition: width 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.loading-bar::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0.1) 100%
-  );
-  animation: shine 2s infinite;
-}
-
-@keyframes shine {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.loading-text {
-  margin-top: 15px;
-  color: #797979;
-  font-family: "Montserrat", cursive;
-  font-size: 1.2rem;
-  text-align: center;
-  text-shadow: 1px 1px 2px #000;
-}
-
-.loading-tip {
-  margin-top: 30px;
-  color: #aaa;
-  font-style: italic;
-  text-align: center;
-  max-width: 400px;
-  border-top: 1px solid #444;
-  padding-top: 15px;
-  min-height: 150px;
-}
-
-.hidden {
-  display: none;
 }
 
 @keyframes enemyAttack {
@@ -587,58 +761,6 @@ button:hover::before {
   z-index: 205;
 }
 
-.energy-particle {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: #ff0000;
-  border-radius: 50%;
-  opacity: 0;
-}
-
-.enemy-progress {
-  text-align: center;
-  margin: 20px 0;
-  position: relative;
-}
-
-.enemy-track {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.enemy-status {
-  width: 80px;
-  text-align: center;
-  transition: all 0.3s;
-}
-
-.enemy-status img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #444;
-}
-
-.enemy-status.defeated {
-  opacity: 0.6;
-  filter: grayscale(80%);
-}
-
-.enemy-status.current {
-  transform: scale(1.2);
-  border-color: #ff4444;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-}
-
-.enemy-status.future {
-  display: none;
-}
-
 .enemy-status .name {
   margin-top: 5px;
   font-size: 0.9rem;
@@ -760,121 +882,6 @@ button:hover::before {
   box-shadow: 0 0 20px gold;
 }
 
-/* Media Query para telas menores */
-@media (max-width: 910px) {
-  .hexagon {
-    top: 4px;
-  }
-
-  body {
-    padding: 20px;
-  }
-
-  .container {
-    flex-direction: column;
-    align-items: center;
-    padding: 0 15px;
-  }
-
-  .enemy,
-  .player {
-    min-width: 250px;
-    margin: 10px 0;
-  }
-
-  .card-hand {
-    grid-template-columns: repeat(
-      4,
-      1fr
-    ); /* Menos colunas para caber melhor na tela */
-    gap: 5px;
-  }
-
-  .card {
-    width: 80px;
-    height: 120px;
-  }
-
-  .actions {
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  button {
-    width: 80%; /* Botões mais largos em telas pequenas */
-    margin: 10px 0;
-    font-size: 18px;
-  }
-
-  #log {
-    max-width: 100%;
-    height: 200px; /* Ajustar a altura do log */
-  }
-
-  /* Ajuste para o título da loading screen */
-  .loading-title {
-    font-size: 2.5rem;
-  }
-
-  .loading-container {
-    width: 80%;
-    padding: 15px;
-  }
-
-  .loading-text {
-    font-size: 1rem;
-  }
-
-  /* Reduzir os tamanhos de alguns elementos */
-  .card-value {
-    font-size: 1.5em;
-  }
-
-  .card-suit {
-    font-size: 2em;
-  }
-}
-
-/* Media Query para telas muito pequenas, como smartphones em modo retrato */
-@media (max-width: 480px) {
-  .container {
-    padding: 0 10px;
-  }
-
-  .enemy,
-  .player {
-    min-width: 200px;
-  }
-
-  .card-hand {
-    grid-template-columns: repeat(3, 1fr); /* Cartas em 3 colunas */
-    gap: 5px;
-  }
-
-  .card {
-    width: 70px;
-    height: 110px;
-  }
-
-  button {
-    font-size: 16px;
-    width: 90%; /* Botões quase inteiros */
-  }
-
-  .loading-title {
-    font-size: 2rem;
-  }
-
-  .loading-container {
-    width: 70%;
-  }
-
-  .loading-text {
-    font-size: 0.9rem;
-  }
-}
-
 /* Estilos para a modal de game over */
 .modal {
   display: none;
@@ -957,50 +964,6 @@ button:hover::before {
 .modal-buttons button:hover {
   transform: scale(1.05);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Animação de entrada */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsividade para mobile */
-@media (max-width: 600px) {
-  .modal-content {
-    width: 95%;
-    padding: 20px 15px;
-  }
-
-  .modal h2 {
-    font-size: 1.5rem;
-  }
-
-  .modal p {
-    font-size: 1rem;
-  }
-
-  .modal-image {
-    width: 150px;
-    height: 150px;
-    font-size: 3rem;
-  }
-
-  .modal-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .modal-buttons button {
-    width: 100%;
-    padding: 10px;
-  }
 }
 
 /* ANIMAÇÃO DE EMBARALHAMENTO MEDIEVAL - VERSÃO AMPLIADA */
@@ -1156,134 +1119,6 @@ button:hover::before {
   }
 }
 
-/* Responsividade para versão ampliada */
-@media (max-width: 768px) {
-  .view-damage {
-    width: 90%;
-  }
-
-  .shuffle-card {
-    width: 100px;
-    height: 150px;
-  }
-
-  .shuffle-card .card-value {
-    font-size: 24px;
-  }
-
-  .shuffle-card .card-suit {
-    font-size: 36px;
-  }
-}
-
-@media (max-width: 480px) {
-  .view-damage {
-    width: 90%;
-  }
-
-  .shuffle-card {
-    width: 80px;
-    height: 120px;
-  }
-
-  .shuffle-card .card-value {
-    font-size: 20px;
-  }
-
-  .shuffle-card .card-suit {
-    font-size: 30px;
-  }
-}
-
-/* Aura mais elaborada para cartas críticas */
-.card.critical {
-  position: relative;
-  overflow: visible;
-  transform: translateY(0);
-  animation: float 2s ease-in-out infinite;
-}
-
-.damage-type::before {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 77, 77, 0.8) 0%,
-    rgba(255, 50, 50, 0.5) 50%,
-    rgba(255, 77, 77, 0.8) 100%
-  );
-  border-radius: 8px;
-  z-index: -1;
-  animation: aura-pulse 1.5s ease-in-out infinite;
-}
-
-.defense-type::before {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  background: linear-gradient(
-    45deg,
-    rgba(77, 121, 255, 0.8) 0%,
-    rgba(50, 100, 255, 0.5) 50%,
-    rgba(77, 121, 255, 0.8) 100%
-  );
-  border-radius: 8px;
-  z-index: -1;
-  animation: aura-pulse 1.5s ease-in-out infinite;
-}
-
-.heal-type::before {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  background: linear-gradient(
-    45deg,
-    rgba(77, 255, 136, 0.8) 0%,
-    rgba(50, 200, 100, 0.5) 50%,
-    rgba(77, 255, 136, 0.8) 100%
-  );
-  border-radius: 8px;
-  z-index: -1;
-  animation: aura-pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes aura-pulse {
-  0% {
-    opacity: 0.6;
-    filter: blur(8px);
-  }
-  50% {
-    opacity: 0.3;
-    filter: blur(12px);
-  }
-  100% {
-    opacity: 0.6;
-    filter: blur(8px);
-  }
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
-
 /* Efeito de partículas melhorado */
 .defense-type-particle {
   position: fixed;
@@ -1395,168 +1230,280 @@ button:hover::before {
   }
 }
 
-/* Animação adicional para cartas críticas */
-.card.critical.selected {
-  animation: critical-float 1s ease-in-out infinite;
-}
 
-@keyframes critical-float {
-  0% {
-    transform: translateY(-20px) rotateZ(0deg);
-  }
-  50% {
-    transform: translateY(-25px) rotateZ(3deg);
-  }
-  100% {
-    transform: translateY(-20px) rotateZ(0deg);
-  }
-}
-
-.character-selection-screen {
+/* Modal de Combinações */
+.modal-cards {
+  display: none;
   position: fixed;
-  top: 0;
+  z-index: 1000;
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background: url("../assets/images/2151470678.jpg") no-repeat center center;
-  background-size: cover;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow-y: auto;
+}
+
+.modal-cards .modal-content {
+  background-color: #2b2d42;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 800px;
+  color: white;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: fit-content;
+}
+
+.card-examples .card-value {
+  margin-top:  5px;
+  position: static;
+  font-size: 1.1rem;
+}
+
+.card-examples .card-suit
+{
+  margin-top:  0;
+}
+
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: white;
+}
+
+/* Tabela de Combinações */
+.combinations-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 14px;
+}
+
+.combinations-table th, 
+.combinations-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #4a4e69;
+  vertical-align: middle;
+}
+
+.combinations-table th {
+  background-color: #4a4e69;
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+.combinations-table tr:hover {
+  background-color: rgba(74, 78, 105, 0.3);
+}
+
+/* Exemplos de cartas */
+.card-examples {
+  display: flex;
+  gap: 4px;
+}
+
+.card-example {
+  width: 30px;
+  height: 45px;
+  border-radius: 3px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  color: white;
-  text-align: center;
-  padding: 20px;
+  font-size: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
-.character-selection-screen h1 {
-  font-size: 3rem;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
-  margin-bottom: 2rem;
-  animation: glow 2s infinite alternate;
+.card-example.red {
+  background: linear-gradient(135deg, #fff, #ffd0d0);
+  color: #d00000;
 }
 
-.character-cards {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+.card-example.black {
+  background: linear-gradient(135deg, #fff, #f0f4ff);
+  color: #222;
 }
 
-.character-card {
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 15px;
-  padding: 1.5rem;
-  width: 280px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
-
-.character-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
-.character-card p {
-  min-height: 58px;
-}
-
-.character-portrait {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto 1rem;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid;
-  position: relative;
-}
-
-.damage-type {
-  border-color: #ff4d4d;
-  box-shadow: 0 0 20px rgba(255, 77, 77, 0.6);
-}
-
-.defense-type {
-  border-color: #4d79ff;
-  box-shadow: 0 0 20px rgba(77, 121, 255, 0.6);
-}
-
-.heal-type {
-  border-color: #4dff88;
-  box-shadow: 0 0 20px rgba(77, 255, 136, 0.6);
-}
-
-.character-portrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.character-ability {
-  margin-top: 1rem;
-  padding: 0.5rem;
-  border-radius: 8px;
+.card-example .card-value {
   font-weight: bold;
 }
 
-.damage-type .character-ability {
-  background: rgba(255, 77, 77, 0.2);
-  border: 1px solid #ff4d4d;
+.card-example .card-suit {
+  font-size: 10px;
 }
 
-.defense-type .character-ability {
-  background: rgba(77, 121, 255, 0.2);
-  border: 1px solid #4d79ff;
+.damage-cell {
+  font-weight: bold;
+  color: #ff6b6b;
 }
 
-.heal-type .character-ability {
-  background: rgba(77, 255, 136, 0.2);
-  border: 1px solid #4dff88;
+/* Seção de bônus */
+.bonus-info {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(74, 78, 105, 0.3);
+  border-radius: 6px;
 }
 
-.ability-icon {
-  margin-right: 8px;
-  font-size: 1.2rem;
+.bonus-info h3 {
+  margin-top: 0;
+  color: #f8f8f8;
+  font-size: 16px;
 }
 
-@keyframes glow {
-  from {
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+.bonus-info ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.bonus-info li {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+
+/* Adicione estas regras ao seu CSS existente */
+
+/* Ajustes para telas menores que 768px */
+@media (max-width: 768px) {
+  .modal-cards .modal-content {
+    width: 95%;
+    margin: 10px auto;
+    padding: 15px;
   }
-  to {
-    text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8);
+  
+  .combinations-table {
+    font-size: 12px;
+  }
+  
+  .combinations-table th, 
+  .combinations-table td {
+    padding: 8px;
+  }
+  
+  .card-example {
+    width: 25px;
+    height: 38px;
+    font-size: 10px;
+  }
+  
+  .card-example .card-suit {
+    font-size: 8px;
+  }
+  
+  .bonus-info {
+    padding: 10px;
   }
 }
 
-
-/* new */
-
-/* Estilo para o modo desabilitado */
-.character-card.disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+/* Ajustes para telas menores que 512px */
+@media (max-width: 512px) {
+  .modal-cards .modal-content {
+    padding: 10px;
+  }
+  
+  .combinations-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .combinations-content h2 {
+    font-size: 1.2rem;
+  }
+  
+  .combinations-table th, 
+  .combinations-table td {
+    padding: 6px;
+    font-size: 11px;
+  }
+  
+  .card-examples {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px;
+  }
+  
+  .card-example {
+    width: 20px;
+    height: 30px;
+    font-size: 8px;
+  }
+  
+  .card-example .card-suit {
+    font-size: 7px;
+  }
+  
+  .bonus-info h3 {
+    font-size: 14px;
+  }
+  
+  .bonus-info li {
+    font-size: 12px;
+  }
 }
 
-.character-card.disabled:hover {
-  transform: none;
-  box-shadow: none;
-}
-
-.disabled-type {
-  border-color: #555 !important;
-}
-
-.coming-soon {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.8);
-  color: #ff0000;
-  padding: 5px;
-  font-size: 1.2rem;
-  transform: translateY(-50%);
-  text-shadow: 0 0 5px #000;
+/* Ajustes para telas muito pequenas (menores que 400px) */
+@media (max-width: 400px) {
+  .combinations-table th, 
+  .combinations-table td {
+    padding: 4px;
+    font-size: 10px;
+  }
+  
+  .card-example {
+    width: 18px;
+    height: 27px;
+  }
+  
+  /* Simplificar a tabela em telas muito pequenas */
+  .combinations-table thead {
+    display: none;
+  }
+  
+  .combinations-table tr {
+    display: block;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #4a4e69;
+  }
+  
+  .combinations-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dotted #4a4e69;
+  }
+  
+  .combinations-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+    color: #f8f8f8;
+  }
+  
+  /* Adicionar labels para as células */
+  .combinations-table td:nth-child(1)::before {
+    content: "Combinação:";
+  }
+  .combinations-table td:nth-child(2)::before {
+    content: "Exemplo:";
+  }
+  .combinations-table td:nth-child(3)::before {
+    content: "Ataque:";
+  }
+  .combinations-table td:nth-child(4)::before {
+    content: "Dano:";
+  }
 }
