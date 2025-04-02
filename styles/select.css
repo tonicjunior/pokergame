@@ -285,14 +285,6 @@
     padding: 15px;
   }
 
-  .reward-options {
-    grid-template-columns: 1fr;
-  }
-
-  .reward-card {
-    width: 100%;
-  }
-
   /* MODAL */
   .modal-content {
     width: 95%;
@@ -360,10 +352,22 @@
     width: 320px;
   }
   #log {
-    margin: 0px 0px 10px 0px;
+    margin: 10px 0px;
     height: 60px;
     font-size: 0.6rem;
     width: 270px;
+  }
+  .turn-indicator {
+    padding: 3px 7px;
+    font-size: 12px;
+  }
+  .enemy-status {
+    width: 50px;
+  }
+
+  .enemy-status img {
+    width: 40px;
+    height: 40px;
   }
 
   .card-hand {
@@ -393,10 +397,6 @@
 
   .player .health-bar {
     height: 5px;
-  }
-
-  .enemy-track {
-    display: none;
   }
 
   .card-value {
