@@ -139,16 +139,15 @@
             <!-- Área das cartas do jogador -->
             <div class="card-hand" id="player-hand"></div>
           </div>
-        </div>
-          <div class="actions">
-            <button onclick="playDiscard()" id="discard-btn" class="discard">
-              DESCARTAR
+          <div class="organize-buttons">
+          </button>
+          <button id="attack-btn" class="organize-btn attack" title="descarte" onclick="playHand()"></button>
+            <button id="discard-btn" class="organize-btn discard" title="descarte" onclick="playDiscard()">
               <div class="hexagon" id="discard-count">3</div>
-            </button>
-            <button onclick="playHand()" id="attack-btn" class="attack">
-              ATACAR
-            </button>
+            </button>   
+          </button>
           </div>
+        </div>
         </div>
       </div>
     </div>
