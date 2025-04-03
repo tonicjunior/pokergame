@@ -329,6 +329,18 @@ button:hover::before {
   font-size: 1rem;
 }
 
+#nickPlayer2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  color: #a6b3eb;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
+}
+
+
+
 .enemy-container {
   display: flex;
   justify-content: center;
@@ -417,6 +429,13 @@ h1 {
   background-color: #e94560;
   color: white;
 }
+
+.turn-indicator.monster-turn {
+  background-color: #d0e945;
+  color: #1a1a2e;
+}
+
+
 
 .enemy-track {
   display: flex;
@@ -521,7 +540,7 @@ h1 {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 @keyframes shake {
@@ -921,16 +940,7 @@ h1 {
   margin-top: 25px;
 }
 
-.modal-buttons button {
-  padding: 12px 25px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+
 
 #modal-action-button {
   background: linear-gradient(45deg, #8b0000, #ff4444);
@@ -940,11 +950,6 @@ h1 {
 #modal-quit-button {
   background: linear-gradient(45deg, #37474f, #607d8b);
   color: white;
-}
-
-.modal-buttons button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* ANIMAÇÃO DE EMBARALHAMENTO MEDIEVAL - VERSÃO AMPLIADA */
@@ -1483,4 +1488,241 @@ h1 {
   .combinations-table td:nth-child(4)::before {
     content: "Dano:";
   }
+}
+
+
+/* Estilo Dark Souls para as modais */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.modal-content {
+  position: relative;
+  background: linear-gradient(to bottom, #1a1a1a 0%, #0d0d0d 100%);
+  border: 2px solid #5e2e0f;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(139, 0, 0, 0.5),
+              0 0 40px rgba(139, 0, 0, 0.3) inset;
+  padding: 30px;
+  width: 80%;
+  max-width: 500px;
+  color: #e0d3c5;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.modal-content::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border: 1px solid #5e2e0f;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.modal-content h2 {
+  color: #c0a062;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+  font-weight: 700;
+  border-bottom: 1px solid #5e2e0f;
+  padding-bottom: 10px;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Estilo específico para a modal de nickname */
+#nickname-modal .modal-content {
+  background-size: cover;
+  border: 3px solid #5e2e0f;
+  box-shadow: 0 0 25px rgba(139, 0, 0, 0.7),
+              0 0 15px rgba(139, 0, 0, 0.3) inset;
+}
+
+#nickname-input {
+  width: 80%;
+  padding: 12px 15px;
+  margin: 15px 0;
+  background: rgba(30, 20, 10, 0.7);
+  border: 1px solid #5e2e0f;
+  color: #e0d3c5;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+#nickname-input:focus {
+  border-color: #c0a062;
+  box-shadow: 0 0 10px rgba(192, 160, 98, 0.5);
+}
+
+/* Estilo para a modal de jogadores disponíveis */
+#players-modal .modal-content {
+  background-size: cover;
+  max-width: 600px;
+}
+
+#players-list {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 20px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #5e2e0f #1a1a1a;
+}
+
+#players-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#players-list::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+#players-list::-webkit-scrollbar-thumb {
+  background-color: #5e2e0f;
+  border-radius: 4px;
+}
+
+#players-list li {
+  padding: 12px 15px;
+  margin: 8px 0;
+  background: rgba(30, 20, 10, 0.7);
+  border: 1px solid #5e2e0f;
+  color: #e0d3c5;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+#players-list li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(192, 160, 98, 0.2), transparent);
+  transition: 0.5s;
+}
+
+#players-list li:hover {
+  background: rgba(50, 30, 15, 0.8);
+  border-color: #c0a062;
+}
+
+#players-list li:hover::before {
+  left: 100%;
+}
+
+.loading-players {
+  padding: 20px;
+  color: #c0a062;
+  font-style: italic;
+}
+
+#confirmation-message{
+  color: white;
+}
+
+.modal-buttons button {
+  position: relative;
+  padding: 12px 25px;
+  background: linear-gradient(to bottom, #3a1f0f 0%, #1a1008 100%);
+  border: 1px solid #5e2e0f;
+  color: #e0d3c5;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5),
+              inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  outline: none;
+  min-width: 120px;
+}
+
+.modal-buttons button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(192, 160, 98, 0.4), transparent);
+  transition: 0.5s;
+}
+
+.modal-buttons button:hover {
+  color: #fff;
+  border-color: #c0a062;
+  box-shadow: 0 0 10px rgba(192, 160, 98, 0.5),
+              inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.modal-buttons button:hover::before {
+  left: 100%;
+}
+
+.modal-buttons button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5),
+              inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+
+/* Modal de confirmação estilo medieval */
+.medieval-modal {
+  background-size: cover;
+  border: 3px solid #5e2e0f;
+  color: #3a2a1a;
+}
+
+.medieval-modal h2 {
+  color: #5e2e0f;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.medieval-modal p {
+  color: #3a2a1a;
+  font-size: 18px;
+}
+
+.medieval-button {
+  background: linear-gradient(to bottom, #c0a062 0%, #8a6d3b 100%);
+  border: 1px solid #5e2e0f;
+  color: #2a1a0a;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.medieval-button:hover {
+  background: linear-gradient(to bottom, #d0b072 0%, #9a7d4b 100%);
+  border-color: #7e4e1f;
+  color: #3a2a1a;
 }
