@@ -162,8 +162,8 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+#confirmation-title{color: white;}
 .medieval-modal {
-  background: #2a2118 url('"../assets/images/2151470678.jpg') center/cover;
   border: 3px solid #5a4a3a;
   border-radius: 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
