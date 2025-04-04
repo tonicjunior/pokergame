@@ -1726,3 +1726,19 @@ h1 {
   border-color: #7e4e1f;
   color: #3a2a1a;
 }
+
+
+.card.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+  cursor: not-allowed;
+  filter: grayscale(50%);
+}
+
+.card.disabled.critical {
+  filter: grayscale(50%) hue-rotate(45deg) brightness(1.2);
+}
+
+#game-modal{
+  z-index: 9999;
+}
