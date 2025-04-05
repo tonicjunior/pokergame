@@ -1254,7 +1254,7 @@ h1 {
 .close {
   color: #aaa;
   float: right;
-  font-size: 28px;
+  font-size: 50px;
   font-weight: bold;
   cursor: pointer;
   transition: color 0.2s;
@@ -1519,7 +1519,7 @@ h1 {
   max-width: 500px;
   color: #e0d3c5;
   text-align: center;
-  animation: fadeIn 0.5s ease-out;
+  opacity: 1 !important;
 }
 
 .modal-content::before {
