@@ -154,7 +154,7 @@
   /* AJUSTES GERAIS */
   body {
     padding: 0;
-    overflow-x: hidden;
+    width: 90vw;
   }
 
   /* SELEÇÃO DE MODO E PERSONAGEM */
@@ -545,11 +545,9 @@
   height: 100px !important;
 }
 
-
 .attack:hover {
-  background-color: rgba(255, 0, 0, 0.4) ;
+  background-color: rgba(255, 0, 0, 0.4);
 }
-
 
 .discard {
   background-image: url("../assets/images/discard.png");
