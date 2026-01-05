@@ -109,24 +109,23 @@
     margin-bottom: 1.8rem;
     letter-spacing: 2px;
   }
-  
+
   .loading-container {
     padding: 20px;
   }
-  
+
   .loading-bar-container {
     height: 25px;
   }
-  
+
   .loading-text {
     font-size: 1.1rem;
   }
-  
+
   .loading-tip {
     font-size: 1rem;
   }
 }
-
 
 /* Adicione isso ao seu styles/loading.css */
 .loading-modal {
@@ -159,10 +158,16 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-#confirmation-title{color: white;}
+#confirmation-title {
+  color: white;
+}
 .medieval-modal {
   border: 3px solid #5a4a3a;
   border-radius: 0;
@@ -195,7 +200,7 @@
   width: 100%;
 }
 
-.player-container h2, 
+.player-container h2,
 .enemy-container h1 {
   font-size: 1.2rem;
   margin-bottom: 5px;
